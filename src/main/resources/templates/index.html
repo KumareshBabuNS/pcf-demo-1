@@ -4,6 +4,7 @@
 
     <title>Pivota CloudFoundry Demo</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="refresh" content="10" />
 
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
@@ -12,8 +13,8 @@
     <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
             th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
 
-    <link href="../static/css/guru.css"
-          th:href="@{css/guru.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/css/pivotal-demo.css"
+          th:href="@{css/pivotal-demo.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
 <div class="container">
@@ -21,8 +22,9 @@
         <img src="../static/images/cloud-foundry-logo.png" width="434"
              th:src="@{images/cloud-foundry-logo.png}"/>
         <h1>Hello.</h1>
-
         <h2>Welcome to this demo.</h2>
+        
+		<div th:text="${@uptime.getUptime()}">...</div>
     </div>
 </div>
 
