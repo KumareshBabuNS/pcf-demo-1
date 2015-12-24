@@ -27,7 +27,8 @@ public class Uptime {
 
 	public long getUptime() {
 		RuntimeMXBean mxBean = ManagementFactory.getRuntimeMXBean();
-		logger.debug("current uptime is {}.", mxBean.getUptime());
+		this.uptime = mxBean.getUptime();
+		logger.debug("current uptime is {}.", uptime );
 		return uptime;
 	}
 

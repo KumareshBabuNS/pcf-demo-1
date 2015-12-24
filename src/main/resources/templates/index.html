@@ -2,31 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 
-    <title>Pivota CloudFoundry Demo</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="refresh" content="10" />
+<title>Pivota CloudFoundry Demo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="refresh" content="10" />
 
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
-          rel="stylesheet" media="screen" />
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
 
-    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
-            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-
-    <link href="../static/css/pivotal-demo.css"
-          th:href="@{css/pivotal-demo.css}" rel="stylesheet" media="screen"/>
+<link href="../static/css/pivotal-demo.css"
+	th:href="@{css/pivotal-demo.css}" rel="stylesheet" media="screen" />
 </head>
-<body>
-<div class="container">
-    <div class="panel">
-        <img src="../static/images/cloud-foundry-logo.png" width="434"
-             th:src="@{images/cloud-foundry-logo.png}"/>
-        <h1>Hello.</h1>
-        <h2>Welcome to this demo.</h2>
-        
-		<div th:text="${@uptime.getUptime()}">...</div>
-    </div>
-</div>
+<body ng-app="">
+	<div class="container">
+		<div class="panel">
+			<img src="../static/images/cloud-foundry-logo.png" width="434"
+				th:src="@{images/cloud-foundry-logo.png}" />
+			<h1>Hello.</h1>
+			<h2>Welcome to this demo.</h2>
+
+			<div th:text="${@uptime.getUptime()}">...</div>
+			<p>
+				<timer interval="1000">{{hours}} hours, {{minutes}} minutes,
+				{{seconds}} seconds.</timer>
+			</p>
+			<p>Nothing here {{'yet' + '!'}}</p>
+		</div>
+	</div>
+
+	<script
+		src="http://cdn.jsdelivr.net/webjars/angularjs/1.4.8/angular.min.js"
+		th:src="@{/webjars/angularjs/1.4.8/angular.min.js}"></script>
+	<script src="../static/js/angular-timer.js"
+		th:src="@{js/angular-timer.js}"></script>
+	<script>
+		angular.module("", [ 'timer' ]);
+	</script>
 
 </body>
 </html>
