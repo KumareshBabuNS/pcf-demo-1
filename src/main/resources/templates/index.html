@@ -14,7 +14,7 @@
 <link href="../static/css/pivotal-demo.css"
 	th:href="@{css/pivotal-demo.css}" rel="stylesheet" media="screen" />
 </head>
-<body ng-app="">
+<body ng-app="pivotalDemo">
 	<div class="container">
 		<div class="panel">
 			<img src="../static/images/cloud-foundry-logo.png" width="434"
@@ -24,10 +24,13 @@
 
 			<div th:text="${@uptime.getUptime()}">...</div>
 			<p>
-				<timer interval="1000">{{hours}} hours, {{minutes}} minutes,
-				{{seconds}} seconds.</timer>
+				<timer id="timer" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}</timer>
 			</p>
 			<p>Nothing here {{'yet' + '!'}}</p>
+			<script>
+document.write("${upHours} + ':' + ${upMinutes} + ':' + ${upSeconds}");
+			</script>
+
 		</div>
 	</div>
 
@@ -36,8 +39,26 @@
 		th:src="@{/webjars/angularjs/1.4.8/angular.min.js}"></script>
 	<script src="../static/js/angular-timer.js"
 		th:src="@{js/angular-timer.js}"></script>
+	<script src="../static/js/humanize-duration.js"
+		th:src="@{js/humanize-duration.js}"></script>
+	<script src="../static/js/moment.js" th:src="@{js/moment.js}"></script>
 	<script>
-		angular.module("", [ 'timer' ]);
+		angular.module('pivotalDemo', []);
+		angular.module('pivotalDemo', [ 'timer' ]);
+	</script>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		var upTime = /*[[${@uptime.getUptime()}]]*/;
+		var upSeconds = upTime / 1000;
+		console.log("upSeconds is: " + upSeconds);
+		var upHours = upSeconds % 3600;
+		upSeconds = upSeconds - upHours * 3600;
+		var upMinutes = upSeconds % 60;
+		upSeconds = upSeconds - upMinutes * 60;
+		console.log("start-time is: " + upTime);
+		var t1 = document.getElementById("timer");
+		t1.setAttribute("start-time", 8442);
+	/*]]>*/
 	</script>
 
 </body>

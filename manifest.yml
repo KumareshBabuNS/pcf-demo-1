@@ -1,0 +1,4 @@
+---
+applications:
+- name: bprager-pivotal-demo
+  host: bprager-pivotal-host-01
