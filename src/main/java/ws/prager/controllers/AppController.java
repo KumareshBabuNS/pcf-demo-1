@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ws.prager.models.Application;
+
 @RestController
 public class AppController {
 	final static Logger logger = LoggerFactory.getLogger(AppController.class);
@@ -22,14 +24,20 @@ public class AppController {
 	}
 	
 	 @RequestMapping(value = "/allInstances", method = RequestMethod.GET)
-	 public Integer allInstances() {
+	 public Application allInstances() {
+		Application app = new Application();
 		Integer numberOfInstances = 0;
 		CloudCredentials credentials = new CloudCredentials("bernd@prager.ws", "muemmi");
 		CloudFoundryClient cloudFoundryClient = new CloudFoundryClient(credentials , url);
 		CloudApplication cloudApplication = cloudFoundryClient.getApplication("bprager-pivotal-demo");
 		numberOfInstances = cloudApplication.getRunningInstances();
+		String index = System.getenv("CF_INSTANCE_INDEX");
+		if (index == null) index = "0";
 		logger.info("number of instances: {}.", numberOfInstances);
-		return numberOfInstances;
+		logger.info("index: {}.", index);
+		app.setIndex(Integer.parseInt(index));
+		app.setNumbers(numberOfInstances);
+		return app;
 	 }
 
 }
