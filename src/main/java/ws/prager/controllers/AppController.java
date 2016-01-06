@@ -23,7 +23,7 @@ public class AppController {
 		url = new URL("https://api.run.pivotal.io");
 	}
 	
-	 @RequestMapping(value = "/allInstances", method = RequestMethod.GET)
+	 @RequestMapping(value = "/appInfo", method = RequestMethod.GET)
 	 public Application allInstances() {
 		Application app = new Application();
 		Integer numberOfInstances = 0;
@@ -32,7 +32,12 @@ public class AppController {
 		CloudApplication cloudApplication = cloudFoundryClient.getApplication("bprager-pivotal-demo");
 		numberOfInstances = cloudApplication.getRunningInstances();
 		String index = System.getenv("CF_INSTANCE_INDEX");
-		if (index == null) index = "0";
+		if (index == null) {
+			index = "0";
+			app.setOnCF(false);
+		} else {
+			app.setOnCF(true);
+		}
 		logger.info("number of instances: {}.", numberOfInstances);
 		logger.info("index: {}.", index);
 		app.setIndex(Integer.parseInt(index));

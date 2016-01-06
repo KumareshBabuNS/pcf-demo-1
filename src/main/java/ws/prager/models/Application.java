@@ -4,6 +4,15 @@ public class Application {
 	
 	private int numbers;
 	private int index;
+	private boolean onCF;
+
+	public boolean isOnCF() {
+		return onCF;
+	}
+
+	public void setOnCF(boolean onCF) {
+		this.onCF = onCF;
+	}
 
 	public Application() {
 	}

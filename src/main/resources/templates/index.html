@@ -4,7 +4,7 @@
 
 <title>Pivota CloudFoundry Demo</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="refresh" content="10" />
+<!-- meta http-equiv="refresh" content="10" / -->
 
 <link
 	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -22,43 +22,21 @@
 			<h1>Hello.</h1>
 			<h2>Welcome to this demo.</h2>
 
-			<div th:text="${@uptime.getUptime()}">...</div>
-			<p>
-				<timer id="timer" interval="1000">{{hhours}}:{{mminutes}}:{{sseconds}}</timer>
-			</p>
 			<p>Nothing here {{'yet' + '!'}}</p>
-			<script>
-document.write("${upHours} + ':' + ${upMinutes} + ':' + ${upSeconds}");
-			</script>
 
+		</div>
+		<div ng-controller="appController">
+			<p>We got {{app.numbers}} instances running.</p>
+			<p>This is instance number {{app.index}}.</p>
 		</div>
 	</div>
 
 	<script
 		src="http://cdn.jsdelivr.net/webjars/angularjs/1.4.8/angular.min.js"
 		th:src="@{/webjars/angularjs/1.4.8/angular.min.js}"></script>
-	<script src="../static/js/angular-timer.js"
-		th:src="@{js/angular-timer.js}"></script>
-	<script src="../static/js/humanize-duration.js"
-		th:src="@{js/humanize-duration.js}"></script>
-	<script src="../static/js/moment.js" th:src="@{js/moment.js}"></script>
+	<script src="../static/js/pivotalDemo.js" th:src="@{js/pivotalDemo.js}"></script>
 	<script>
 		angular.module('pivotalDemo', []);
-		angular.module('pivotalDemo', [ 'timer' ]);
-	</script>
-	<script th:inline="javascript">
-	/*<![CDATA[*/
-		var upTime = /*[[${@uptime.getUptime()}]]*/;
-		var upSeconds = upTime / 1000;
-		console.log("upSeconds is: " + upSeconds);
-		var upHours = upSeconds % 3600;
-		upSeconds = upSeconds - upHours * 3600;
-		var upMinutes = upSeconds % 60;
-		upSeconds = upSeconds - upMinutes * 60;
-		console.log("start-time is: " + upTime);
-		var t1 = document.getElementById("timer");
-		t1.setAttribute("start-time", 8442);
-	/*]]>*/
 	</script>
 
 </body>

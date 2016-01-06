@@ -1,4 +1,5 @@
 ---
 applications:
 - name: bprager-pivotal-demo
-  host: bprager-pivotal-host-01
+  host: bprager-host
+  memory: 512M
