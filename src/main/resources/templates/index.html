@@ -4,7 +4,7 @@
 
 <title>Pivota CloudFoundry Demo</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!-- meta http-equiv="refresh" content="10" / -->
+<meta http-equiv="refresh" content="10" />
 
 <link
 	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -19,10 +19,7 @@
 		<div class="panel">
 			<img src="../static/images/cloud-foundry-logo.png" width="434"
 				th:src="@{images/cloud-foundry-logo.png}" />
-			<h1>Hello.</h1>
-			<h2>Welcome to this demo.</h2>
-
-			<p>Nothing here {{'yet' + '!'}}</p>
+			<h2>Welcome to this little Cloud Foundry demo.</h2>
 
 		</div>
 		<div ng-controller="appController">
@@ -36,7 +33,7 @@
 		th:src="@{/webjars/angularjs/1.4.8/angular.min.js}"></script>
 	<script src="../static/js/pivotalDemo.js" th:src="@{js/pivotalDemo.js}"></script>
 	<script>
-		angular.module('pivotalDemo', []);
+		angular.module('pivotalDemo');
 	</script>
 
 </body>
