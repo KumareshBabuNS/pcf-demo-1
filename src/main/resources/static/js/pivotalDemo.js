@@ -3,11 +3,14 @@
  */
 /*global angular */
 var pivotalDemo = angular.module('pivotalDemo', []);
-/*global $scope, $http */
+/*global $scope, $http, console */
 pivotalDemo.controller('appController', [ "$scope", "$http", function appController($scope, $http) {
     'use strict';
-    $http.get('http://bprager-host.cfapps.io/appInfo').
+    $scope.loading = true;
+    $http.get('/appInfo').
         success(function (data) {
+            data.loaded = true;
             $scope.app = data;
+            $scope.loading = false;
         });
 }]);

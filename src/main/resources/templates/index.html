@@ -4,7 +4,7 @@
 
 <title>Pivota CloudFoundry Demo</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="refresh" content="10" />
+<!-- meta http-equiv="refresh" content="10" / -->
 
 <link
 	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -17,12 +17,13 @@
 <body ng-app="pivotalDemo">
 	<div class="container">
 		<div class="panel">
-			<img src="../static/images/cloud-foundry-logo.png" width="434"
+			<img src="../static/images/cloud-foundry-logo.png" width="216"
 				th:src="@{images/cloud-foundry-logo.png}" />
-			<h2>Welcome to this little Cloud Foundry demo.</h2>
+			<h3>Welcome to this little Cloud Foundry demo.</h3>
 
 		</div>
-		<div ng-controller="appController">
+		<div ng-show="loading"><p>Application info loading ...</p></div>
+		<div ng-controller="appController" ng-hide="loading" ng-cloak="">
 			<p>We got {{app.numbers}} instances running.</p>
 			<p>This is instance number {{app.index}}.</p>
 		</div>
