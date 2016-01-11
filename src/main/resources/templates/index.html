@@ -20,22 +20,25 @@
 			<img src="../static/images/cloud-foundry-logo.png" width="216"
 				th:src="@{images/cloud-foundry-logo.png}" />
 			<h3>Welcome to this little Cloud Foundry demo.</h3>
-
 		</div>
-		<div ng-show="loading"><p>Application info loading ...</p></div>
-		<div ng-controller="appController" ng-hide="loading" ng-cloak="">
+		<div ng-show="loading">
+			<p>Application info loading ...</p>
+		</div>
+		<div ng-controller="appController" ng-cloak="">
 			<p>We got {{app.numbers}} instances running.</p>
 			<p>This is instance number {{app.index}}.</p>
+			<p>The application is running {{(uptime.appUptime/1000) |
+				number:0}} seconds.</p>
+			<p>This node is running {{(uptime.nodeUptime/1000) | number:0}}
+				seconds, which are more seconds than {{uptime.trivia}}.</p>
 		</div>
+
 	</div>
 
 	<script
 		src="http://cdn.jsdelivr.net/webjars/angularjs/1.4.8/angular.min.js"
 		th:src="@{/webjars/angularjs/1.4.8/angular.min.js}"></script>
 	<script src="../static/js/pivotalDemo.js" th:src="@{js/pivotalDemo.js}"></script>
-	<script>
-		angular.module('pivotalDemo');
-	</script>
 
 </body>
 </html>
