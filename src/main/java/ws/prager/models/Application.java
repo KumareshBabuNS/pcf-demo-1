@@ -10,10 +10,18 @@ import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.cloudfoundry.client.lib.domain.CloudApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Application {
+
+	@Value("${cfuser.name}")
+	String username;
+	@Value("${cfuser.pwd}")
+	String pwd;
+	@Value("${cfapp.name}")
+	String cfAppName;
 
 	final static Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -46,9 +54,9 @@ public class Application {
 		} catch (MalformedURLException e) {
 			logger.error(e.getMessage());
 		}
-		credentials = new CloudCredentials("bernd@prager.ws", "muemmi");
+		credentials = new CloudCredentials(username, pwd);
 		cloudFoundryClient = new CloudFoundryClient(credentials , url);
-		CloudApplication cloudApplication = cloudFoundryClient.getApplication("bprager-pivotal-demo");
+		CloudApplication cloudApplication = cloudFoundryClient.getApplication(cfAppName);
 		this.running = cloudApplication.getRunningInstances();
 		this.numbers = cloudApplication.getInstances();
 		logger.debug("app numbers are now: {}.", numbers);
@@ -64,7 +72,7 @@ public class Application {
 	}
 
 	public int getNumbers() {
-		CloudApplication cloudApplication = cloudFoundryClient.getApplication("bprager-pivotal-demo");
+		CloudApplication cloudApplication = cloudFoundryClient.getApplication(cfAppName);
 		this.numbers = cloudApplication.getInstances();
 		logger.debug("Instances are now: {}.", this.numbers);
 		return numbers;
@@ -81,7 +89,7 @@ public class Application {
 	}
 	
 	public int getRunning() {
-		CloudApplication cloudApplication = cloudFoundryClient.getApplication("bprager-pivotal-demo");
+		CloudApplication cloudApplication = cloudFoundryClient.getApplication(cfAppName);
 		this.running = cloudApplication.getRunningInstances();
 		logger.debug("running instances are now: {}.", running);
 		return running;

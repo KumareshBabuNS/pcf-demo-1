@@ -1,8 +1,5 @@
 package ws.prager.controllers;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +18,6 @@ public class AppController {
 	private Application application;
 	@Autowired
 	private Uptime uptime;
-	URL url = null;
-
-	public AppController() throws MalformedURLException {
-		url = new URL("https://api.run.pivotal.io");
-	}
 	
 	 @RequestMapping(value = "/upTime", method = RequestMethod.GET)
 	 public Uptime getUptime() {
