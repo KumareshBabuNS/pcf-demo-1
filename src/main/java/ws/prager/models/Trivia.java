@@ -28,7 +28,7 @@ public class Trivia {
 		HttpResponse response = client.execute(request);
 		BufferedReader rd = new BufferedReader (new InputStreamReader(response.getEntity().getContent()));
 		String trivia = rd.readLine();
-		logger.debug("received {}.", trivia);
+		logger.debug("received '{}'	.", trivia);
 		return trivia;
 
 	}

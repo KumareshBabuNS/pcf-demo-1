@@ -16,6 +16,14 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 public class Uptime {
+	
+	@Autowired
+	@Transient
+	private Node node;
+
+	@Id
+	private Long id = 1L;
+	private long applicationStartTime;
 
 	@Autowired
 	@Transient
@@ -28,21 +36,14 @@ public class Uptime {
 	@Transient
 	private String trivia;
 
-	@Id
-	private Long id = 1L;
-	@Transient
-	private long nodeStartTime;
-
-	private long applicationStartTime;
 
 	@Transient
-	private long appUptime;
+	private long appUptime;	
 	@Transient
 	private long nodeUptime;
 
 	public Uptime() {
 		logger.debug("creating uptime bean");
-		nodeStartTime = java.lang.System.currentTimeMillis();
 	}
 
 	@PostConstruct
@@ -52,7 +53,7 @@ public class Uptime {
 			logger.debug("application still not instantiated yet -- we have a problem!!");
 		if (application != null && application.getNumbers() < 2) {
 			logger.debug("I am the first and only.");
-			applicationStartTime = nodeStartTime;
+			applicationStartTime = java.lang.System.currentTimeMillis();
 			logger.debug("persist uptime");
 			repository.save(this);
 			if (application.isOnCF()) {
@@ -64,30 +65,32 @@ public class Uptime {
 			Uptime tmpUptime = new Uptime();
 			tmpUptime = repository.findOne(1L);
 			this.applicationStartTime = tmpUptime.applicationStartTime;
-			logger.debug("app starttime set to {}.", applicationStartTime);
 		}
-	}
-
-	public long getNodeUptime() {
-		long nodeUptime = java.lang.System.currentTimeMillis() - nodeStartTime;
-		logger.debug("nodeUptime is now: {}.", nodeUptime);
-		return nodeUptime;
+		logger.debug("app starttime is now {}.", applicationStartTime);
 	}
 
 	public String getTrivia() throws ClientProtocolException, IOException {
 		Trivia client = new Trivia();
-		this.trivia = client.get((java.lang.System.currentTimeMillis() - nodeStartTime) / 1000);
+		this.trivia = client.get((java.lang.System.currentTimeMillis() - applicationStartTime) / 1000);
 		return trivia;
 	}
 
-	public long getApplicationUpTime() {
-		return java.lang.System.currentTimeMillis() - applicationStartTime;
-	}
-
 	public long getAppUptime() {
-		long appUptime = java.lang.System.currentTimeMillis() - applicationStartTime;
-		logger.debug("nodeUptime is now: {}.", nodeUptime);
-		return appUptime;
+		logger.debug("currentTime is now: {}.", java.lang.System.currentTimeMillis());
+		logger.debug("applicationStartTime: {}.", applicationStartTime);
+		this.appUptime = java.lang.System.currentTimeMillis() - applicationStartTime;
+		logger.debug("appUptime is now: {}.", this.appUptime);
+		return this.appUptime;
 	}
+	
+	public long getNodeUptime() {
+		logger.debug("currentTime is now: {}.", java.lang.System.currentTimeMillis());
+		logger.debug("nodeStart: {}.", node.getStartTime());
+		this.nodeUptime = java.lang.System.currentTimeMillis() - node.getStartTime();
+		logger.debug("nodeUptime is now: {}.", nodeUptime);
+		return nodeUptime;
+	}
+	
+	
 
 }

@@ -17,14 +17,16 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 @Configuration
 public class SimpleDbConfig {
 	
-	String env = "{\"name\":\"rails-postgres\",\"label\":\"elephantsql\",\"tags\":[\"Data Stores\",\"Web-based\",\"User Provisioning\",\"PaaS\",\"Single Sign-On\",\"Windows\",\"New Product\",\"Mac\",\"Certified Applications\",\"Android\",\"Data Store\",\"postgresql\",\"Buyable\",\"relational\",\"Importable\",\"IT Management\"],\"plan\":\"turtle\",\"credentials\":{\"uri\":\"postgres://ysxpnwka:a1ivItDtKK3Lf97LOIMBP22eeod3it2q@pellefant-01.db.elephantsql.com:5432/ysxpnwka\"}}]}";
+	final Logger logger = LoggerFactory.getLogger(SimpleDbConfig.class);
+	
+//	String env = "{\"name\":\"rails-postgres\",\"label\":\"elephantsql\",\"tags\":[\"Data Stores\",\"Web-based\",\"User Provisioning\",\"PaaS\",\"Single Sign-On\",\"Windows\",\"New Product\",\"Mac\",\"Certified Applications\",\"Android\",\"Data Store\",\"postgresql\",\"Buyable\",\"relational\",\"Importable\",\"IT Management\"],\"plan\":\"turtle\",\"credentials\":{\"uri\":\"postgres://ysxpnwka:a1ivItDtKK3Lf97LOIMBP22eeod3it2q@pellefant-01.db.elephantsql.com:5432/ysxpnwka\"}}]}";
+	String env = "{\"name\":\"rails-postgres\",\"label\":\"elephantsql\",\"tags\":[\"Data Stores\",\"Web-based\",\"User Provisioning\",\"PaaS\",\"Single Sign-On\",\"Windows\",\"New Product\",\"Mac\",\"Certified Applications\",\"Android\",\"Data Store\",\"postgresql\",\"Buyable\",\"relational\",\"Importable\",\"IT Management\"],\"plan\":\"turtle\",\"credentials\":{\"uri\":\"postgres://bernd:muemmi@192.168.1.5:5432/test\"}}]}";
 
 	@Autowired
 	Application application;
 	@Bean
 	public DataSource dataSource() {
 
-		final Logger logger = LoggerFactory.getLogger(DataSource.class);
 		URI dbUri;
 		SimpleDriverDataSource basicDataSource = null;
 		ElephantSql elephantSql = null;
@@ -48,21 +50,18 @@ public class SimpleDbConfig {
 			String username = "";
 			String password = "";
 			String url = "";
-//			*** local test db config ***
-//			String username = "bernd";
-//			String password = "****";
-//			String url = "jdbc:postgresql://192.168.1.5:5432/test";
+			logger.debug("uri: {}.", elephantSql.getCredentials().getUri());
 			String dbProperty = elephantSql.getCredentials().getUri();
+			logger.debug("dbProperty: {}.", dbProperty);
 			if (dbProperty != null) {
 				dbUri = new URI(dbProperty);
-				username = dbUri.getUserInfo().split(":")[0];
-				logger.debug("username: {}.", username);
+				username = dbUri.toString().split(":")[0];
 				password = dbUri.getUserInfo().split(":")[1];
-				logger.debug("password: {}.", password);
 				url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-				logger.debug("url: {}.", url);
 			}
 
+			logger.debug("url: {}.", url);
+			
 			basicDataSource = new SimpleDriverDataSource();
 			basicDataSource.setUrl(url);
 			basicDataSource.setUsername(username);

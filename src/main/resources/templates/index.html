@@ -28,9 +28,9 @@
 			<p>We got {{app.numbers}} instances running.</p>
 			<p>This is instance number {{app.index}}.</p>
 			<p>The application is running {{(uptime.appUptime/1000) |
-				number:0}} seconds.</p>
+				number:0}} seconds, which are more seconds than {{uptime.trivia}}.</p>
 			<p>This node is running {{(uptime.nodeUptime/1000) | number:0}}
-				seconds, which are more seconds than {{uptime.trivia}}.</p>
+				seconds.</p>
 		</div>
 
 	</div>
@@ -39,6 +39,9 @@
 		src="http://cdn.jsdelivr.net/webjars/angularjs/1.4.8/angular.min.js"
 		th:src="@{/webjars/angularjs/1.4.8/angular.min.js}"></script>
 	<script src="../static/js/pivotalDemo.js" th:src="@{js/pivotalDemo.js}"></script>
+	<script>
+		angular.module('pivotalDemo');
+	</script>
 
 </body>
 </html>
