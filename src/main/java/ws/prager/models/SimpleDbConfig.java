@@ -20,7 +20,7 @@ public class SimpleDbConfig {
 	final Logger logger = LoggerFactory.getLogger(SimpleDbConfig.class);
 	
 //	String env = "{\"name\":\"rails-postgres\",\"label\":\"elephantsql\",\"tags\":[\"Data Stores\",\"Web-based\",\"User Provisioning\",\"PaaS\",\"Single Sign-On\",\"Windows\",\"New Product\",\"Mac\",\"Certified Applications\",\"Android\",\"Data Store\",\"postgresql\",\"Buyable\",\"relational\",\"Importable\",\"IT Management\"],\"plan\":\"turtle\",\"credentials\":{\"uri\":\"postgres://ysxpnwka:a1ivItDtKK3Lf97LOIMBP22eeod3it2q@pellefant-01.db.elephantsql.com:5432/ysxpnwka\"}}]}";
-	String env = "{\"name\":\"rails-postgres\",\"label\":\"elephantsql\",\"tags\":[\"Data Stores\",\"Web-based\",\"User Provisioning\",\"PaaS\",\"Single Sign-On\",\"Windows\",\"New Product\",\"Mac\",\"Certified Applications\",\"Android\",\"Data Store\",\"postgresql\",\"Buyable\",\"relational\",\"Importable\",\"IT Management\"],\"plan\":\"turtle\",\"credentials\":{\"uri\":\"postgres://bernd:muemmi@192.168.1.5:5432/test\"}}]}";
+	String env = "{\"name\":\"postgres\",\"label\":\"postgres\",\"tags\":[\"Home\",\"postgresql\",\"relational\"],\"plan\":\"platinum\",\"credentials\":{\"uri\":\"postgres://test:test@192.168.1.5:5432/test\"}}]}";
 
 	@Autowired
 	Application application;

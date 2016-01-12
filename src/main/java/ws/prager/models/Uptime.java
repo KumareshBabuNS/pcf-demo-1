@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 public class Uptime {
-	
+
 	@Autowired
 	@Transient
 	private Node node;
@@ -36,9 +36,8 @@ public class Uptime {
 	@Transient
 	private String trivia;
 
-
 	@Transient
-	private long appUptime;	
+	private long appUptime;
 	@Transient
 	private long nodeUptime;
 
@@ -49,9 +48,13 @@ public class Uptime {
 	@PostConstruct
 	public void init() {
 		logger.debug("is up");
-		if (application == null)
+		if (application == null) {
 			logger.debug("application still not instantiated yet -- we have a problem!!");
-		if (application != null && application.getNumbers() < 2) {
+		} else {
+			logger.debug("Instances already running: {}.", application.getRunning());
+			logger.debug("Index : {}.", application.getIndex());
+		}
+		if (application.getRunning() < 1) {
 			logger.debug("I am the first and only.");
 			applicationStartTime = java.lang.System.currentTimeMillis();
 			logger.debug("persist uptime");
@@ -76,21 +79,15 @@ public class Uptime {
 	}
 
 	public long getAppUptime() {
-		logger.debug("currentTime is now: {}.", java.lang.System.currentTimeMillis());
-		logger.debug("applicationStartTime: {}.", applicationStartTime);
 		this.appUptime = java.lang.System.currentTimeMillis() - applicationStartTime;
 		logger.debug("appUptime is now: {}.", this.appUptime);
 		return this.appUptime;
 	}
-	
+
 	public long getNodeUptime() {
-		logger.debug("currentTime is now: {}.", java.lang.System.currentTimeMillis());
-		logger.debug("nodeStart: {}.", node.getStartTime());
 		this.nodeUptime = java.lang.System.currentTimeMillis() - node.getStartTime();
 		logger.debug("nodeUptime is now: {}.", nodeUptime);
 		return nodeUptime;
 	}
-	
-	
 
 }
