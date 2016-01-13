@@ -29,7 +29,7 @@
 			<p>This is instance number {{app.index}}.</p>
 			<p>The application is running {{(uptime.appUptime/1000) |
 				number:0}} seconds, which are more seconds than {{uptime.trivia}}.</p>
-			<p>This node is running {{(uptime.nodeUptime/1000) | number:0}}
+			<p>The node returning this service request is running {{(uptime.nodeUptime/1000) | number:0}}
 				seconds, which is about {{(uptime.nodeUptime/1000)/(uptime.appUptime/1000) *100 | number:0}}% of the application time.</p>
 		</div>
 
