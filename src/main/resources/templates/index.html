@@ -21,9 +21,6 @@
 				th:src="@{images/cloud-foundry-logo.png}" />
 			<h3>Welcome to this little Cloud Foundry demo.</h3>
 		</div>
-		<div ng-show="loading">
-			<p>Application info loading ...</p>
-		</div>
 		<div ng-controller="appController" ng-cloak="">
 			<p>We got {{app.numbers}} instances running.</p>
 			<p>This is instance number {{app.index}}.</p>

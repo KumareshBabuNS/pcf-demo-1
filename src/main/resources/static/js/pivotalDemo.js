@@ -8,13 +8,13 @@ var pivotalDemo = angular.module('pivotalDemo',[])
         $scope.loading = true;
         $http.get('/appInfo').
             success(function (data) {
-                data.loaded = true;
                 $scope.app = data;
             });
         $http.get('/upTime').
             success(function (data) {
-                data.loaded = true;
                 $scope.uptime = data;
-                $scope.loading = false;
+                if ($scope.uptime.nodeUptime > $scope.uptime.appUptime) {
+                	$scope.uptime.nodeUptime = $scope.uptime.appUptime;
+                }
             });
     }]);
